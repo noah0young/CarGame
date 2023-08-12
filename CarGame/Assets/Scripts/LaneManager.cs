@@ -28,7 +28,7 @@ public class LaneManager : MonoBehaviour
             int numCarsSpawned = Random.Range(minNumCarsSpawned, maxNumCarsSpawned);
             for (int i = 0; i < numCarsSpawned; i++)
             {
-                GameObject chosenPreFab = GetRandomFromList<GameObject>(carPrefabs);
+                GameObject chosenPreFab = Utilities.GetRandomFromList<GameObject>(carPrefabs);
                 GameObject newCar = Instantiate(chosenPreFab, transform);
                 newCar.GetComponent<BasicCar>().SetScreenScrollSpeed(screenScrollSpeed);
                 float xPos = SelectXPos(alreadySelectedXPos);
@@ -65,12 +65,6 @@ public class LaneManager : MonoBehaviour
             xPos = Random.Range(startSpawnDistance, endSpawnDistance);
         }
         return xPos;
-    }
-
-    public T GetRandomFromList<T>(List<T> list)
-    {
-        int chosen = Random.Range(0, list.Count);
-        return list[chosen];
     }
 
     private bool InRangeOfCar(List<float> alreadySelectedXPos, float xPos, float minDistance)
