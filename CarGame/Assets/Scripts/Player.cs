@@ -215,7 +215,6 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("colliding with " + collision.transform.name + ", with tag = " + collision.transform.tag);
         if (collision.transform.CompareTag("MovingPlatform"))
         {
             platformRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
