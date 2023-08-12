@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6062544552308240941}
   m_Layer: 6
   m_Name: BasicCar
-  m_TagString: Untagged
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff785b8e18e0e4c75bfe425cf46067c3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier:
 --- !u!222 &6176553213907208617
 CanvasRenderer:
   m_ObjectHideFlags: 0
