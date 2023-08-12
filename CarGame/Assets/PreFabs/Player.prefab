@@ -148,6 +148,7 @@ MonoBehaviour:
   acceleration: 20
   deceleration: 3
   maxSpeed: 5
+  gravityAcc: 9.81
   jumpSpeed: 7
   minJumpSpeed: 3
   jumpKey: j

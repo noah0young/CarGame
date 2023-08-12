@@ -180,9 +180,10 @@ public class Player : MonoBehaviour
     protected void ResetOnGround()
     {
         prevOnGround = onGround;
-        onGround = Physics2D.Raycast(transform.position, Vector2.down, jumpRaycastHeight, floorMask)
+        onGround = (Physics2D.Raycast(transform.position, Vector2.down, jumpRaycastHeight, floorMask)
             || Physics2D.Raycast(transform.position + new Vector3(myCollider.bounds.min.x - myCollider.bounds.center.x, 0), Vector2.down, jumpRaycastHeight, floorMask)
-            || Physics2D.Raycast(transform.position + new Vector3(myCollider.bounds.max.x - myCollider.bounds.center.x, 0), Vector2.down, jumpRaycastHeight, floorMask);
+            || Physics2D.Raycast(transform.position + new Vector3(myCollider.bounds.max.x - myCollider.bounds.center.x, 0), Vector2.down, jumpRaycastHeight, floorMask))
+            && velocity.y <= 0;
         if (onGround)
         {
             jumped = false;

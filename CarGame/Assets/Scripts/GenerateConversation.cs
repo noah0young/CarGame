@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class GenerateConversation : MonoBehaviour
 {
     private List<Conversation> possibleConversations;
     private Conversation curConversation;
     private IEnumerator curConversationMethod;
+    [SerializeField] private List<GameObject> possibleMessagePopUp;
 
     // Start is called before the first frame update
     private void Start()
@@ -16,23 +19,51 @@ public class GenerateConversation : MonoBehaviour
         testMessages.Add(new Message("Hello world!"));
         possibleConversations = new List<Conversation>();
         possibleConversations.Add(new Conversation(testMessages));
+        StopCurConversation();
     }
 
     public void StartRandomConversation()
     {
-        curConversation = Utilities.GetRandomFromList<Conversation>(possibleConversations);
+        StopCurConversation();
+        curConversation = Utilities.GetRandomFromList<Conversation>(possibleConversations).Copy();
         curConversationMethod = RunConversation();
         StartCoroutine(curConversationMethod);
     }
 
     private IEnumerator RunConversation()
     {
-        yield return null;
         while (!curConversation.Finished())
         {
-            
+            Message message = curConversation.GetNext();
+            GameObject popup = Utilities.GetRandomFromList<GameObject>(possibleMessagePopUp);
+            TMP_Text popupText = popup.GetComponentInChildren<TMP_Text>();
+            popupText.text = message.GetText();
+            popup.GetComponentInChildren<Image>().color = message.GetBackgroundColor();
+            popup.SetActive(true);
+            yield return new WaitForSeconds(curConversation.GetTimeSaid());
+            popup.SetActive(false);
+            yield return new WaitForSeconds(curConversation.GetTimeBetween());
         }
         curConversation = null;
+    }
+
+    private void StopCurConversation()
+    {
+        foreach (GameObject popup in possibleMessagePopUp)
+        {
+            popup.SetActive(false);
+        }
+        if (curConversationMethod != null)
+        {
+            StopCoroutine(curConversationMethod);
+            curConversationMethod = null;
+        }
+        curConversation = null;
+    }
+
+    public bool IsDone()
+    {
+        return curConversation == null;
     }
 }
 
@@ -40,6 +71,10 @@ public class Conversation
 {
     private List<Message> messages;
     private int messageIndex = 0;
+    private float minTimeBetween = 3f;
+    private float maxTimeBetween = 4f;
+    private float minTimeSaid = 1f;
+    private float maxTimeSaid = 2f;
 
     public Conversation(List<Message> messages)
     {
@@ -61,6 +96,21 @@ public class Conversation
     public bool Finished()
     {
         return messageIndex >= messages.Count;
+    }
+
+    public float GetTimeBetween()
+    {
+        return Random.Range(minTimeBetween, maxTimeBetween);
+    }
+
+    public float GetTimeSaid()
+    {
+        return Random.Range(minTimeSaid, maxTimeSaid);
+    }
+
+    public Conversation Copy()
+    {
+        return new Conversation(messages);
     }
 }
 
