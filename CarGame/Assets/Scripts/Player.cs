@@ -35,11 +35,6 @@ public class Player : MonoBehaviour
     protected bool onGround { get; private set; }
     private Rigidbody2D platformRigidbody;
 
-    [Header("Tripping")]
-    [SerializeField] private float tripDecrease = .3f;
-    [SerializeField] private float tripTime = .5f;
-    private IEnumerator tripCoroutine;
-
     protected void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -47,7 +42,6 @@ public class Player : MonoBehaviour
         curAcceleration = acceleration;
         curDeceleration = deceleration;
         curMaxSpeed = maxSpeed;
-        tripCoroutine = null;
     }
 
     protected void Update()
@@ -202,32 +196,8 @@ public class Player : MonoBehaviour
         }
     }
 
-    protected virtual IEnumerator Trip()
-    {
-        Debug.Log("Tripped");
-        curAcceleration = acceleration - tripDecrease;
-        curDeceleration = deceleration - tripDecrease;
-        curMaxSpeed = maxSpeed - tripDecrease;
-        yield return new WaitForSeconds(tripTime);
-        curAcceleration = acceleration;
-        curDeceleration = deceleration;
-        curMaxSpeed = maxSpeed;
-        tripCoroutine = null;
-        Debug.Log("Tripped End");
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Trip"))
-        {
-            if (tripCoroutine != null)
-            {
-                StopCoroutine(tripCoroutine);
-                tripCoroutine = null;
-            }
-            tripCoroutine = Trip();
-            StartCoroutine(tripCoroutine);
-        }
         if (collision.CompareTag("Game Over"))
         {
             Debug.Log("Game Over");

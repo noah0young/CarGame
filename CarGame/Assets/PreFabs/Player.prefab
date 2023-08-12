@@ -145,12 +145,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4a14b755c2045fb8b3883c819a0de5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 20
-  deceleration: 3
+  acceleration: 50
+  deceleration: 100
   maxSpeed: 5
   gravityAcc: 9.81
-  jumpSpeed: 7
-  minJumpSpeed: 3
+  jumpSpeed: 12
+  minJumpSpeed: 5
   jumpKey: j
   jumpRaycastHeight: 0.6
   floorMask:

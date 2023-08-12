@@ -22,6 +22,18 @@ public class GenerateConversation : MonoBehaviour
         StopCurConversation();
     }
 
+    public void StartConversation(int conNum)
+    {
+        if (conNum >= possibleConversations.Count)
+        {
+            throw new System.Exception("Conversation out of bounds");
+        }
+        StopCurConversation();
+        curConversation = possibleConversations[conNum];
+        curConversationMethod = RunConversation();
+        StartCoroutine(curConversationMethod);
+    }
+
     public void StartRandomConversation()
     {
         StopCurConversation();
@@ -73,8 +85,8 @@ public class Conversation
     private int messageIndex = 0;
     private float minTimeBetween = 3f;
     private float maxTimeBetween = 4f;
-    private float minTimeSaid = 1f;
-    private float maxTimeSaid = 2f;
+    private float minTimeSaid = 3f;
+    private float maxTimeSaid = 4f;
 
     public Conversation(List<Message> messages)
     {

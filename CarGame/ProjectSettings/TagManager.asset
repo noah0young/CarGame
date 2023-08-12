@@ -6,6 +6,8 @@ TagManager:
   tags:
   - CarDespawner
   - MovingPlatform
+  - Trip
+  - Game Over
   layers:
   - Default
   - TransparentFX

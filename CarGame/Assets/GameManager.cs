@@ -18,6 +18,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float randomConversationMinTimeBetween = 4;
     [SerializeField] private float randomConversationMaxTimeBetween = 8;
 
+    [Header("Story Conversations")]
+    [SerializeField] private GenerateConversation storyConversation;
+    [SerializeField] private List<int> minScoreForStory = new List<int>();
+
+    [Header("Calls")]
+    [SerializeField] private GenerateConversation callConversation;
+    [SerializeField] private float callsMinTimeBetween = 6;
+    [SerializeField] private float callsMaxTimeBetween = 12;
+
+    [Header("Ads")]
+    [SerializeField] private GenerateConversation adConversation;
+    [SerializeField] private float adsMinTimeBetween = 10;
+    [SerializeField] private float adsMaxTimeBetween = 20;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -28,6 +42,9 @@ public class GameManager : MonoBehaviour
         instance = this;
         instance.UpdateScoreText();
         StartCoroutine(StartRandomConversation());
+        StartCoroutine(StartStoryConversations());
+        StartCoroutine(StartCallsConversations());
+        StartCoroutine(StartAdsConversations());
     }
 
     private void Update()
@@ -58,9 +75,39 @@ public class GameManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(randomConversationMinTimeBetween, randomConversationMaxTimeBetween));
-            Debug.Log("Start Random Conversation");
             randomConversation.StartRandomConversation();
             yield return new WaitUntil(() => randomConversation.IsDone());
+        }
+    }
+
+    private IEnumerator StartStoryConversations()
+    {
+        for (int i = 0; i < minScoreForStory.Count; i++)
+        {
+            yield return new WaitUntil(() => score >= minScoreForStory[i]);
+            storyConversation.StartConversation(i);
+        }
+    }
+
+    private IEnumerator StartCallsConversations()
+    {
+        yield return new WaitUntil(() => score >= minScoreForStory[1]);
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(callsMinTimeBetween, callsMaxTimeBetween));
+            callConversation.StartRandomConversation();
+            yield return new WaitUntil(() => callConversation.IsDone());
+        }
+    }
+
+    private IEnumerator StartAdsConversations()
+    {
+        yield return new WaitUntil(() => score >= minScoreForStory[2]);
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(adsMinTimeBetween, adsMaxTimeBetween));
+            adConversation.StartRandomConversation();
+            yield return new WaitUntil(() => callConversation.IsDone());
         }
     }
 }
