@@ -23,10 +23,14 @@ public class CarPlayer : MonoBehaviour
         myRigidbody = GetComponent<Rigidbody2D>();
     }
 
+    protected void Update()
+    {
+        TryJump();
+    }
+
     protected void FixedUpdate()
     {
         Move();
-        TryJump();
     }
 
     protected void Move()
