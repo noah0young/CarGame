@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1362905648713226212}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,7 +157,5 @@ MonoBehaviour:
     m_Bits: 64
   coyoteTime: 0.1
   quickJumpTime: 0.1
-  belowCollider: {fileID: 0}
-  overlapCollider: {fileID: 0}
   tripDecrease: 0.3
   tripTime: 0.1
