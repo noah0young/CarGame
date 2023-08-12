@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class LaneManager : MonoBehaviour
 {
-    private Rigidbody2D myRigidbody;
     [SerializeField] private List<GameObject> carPrefabs;
     [SerializeField] private int minNumCarsSpawned = 3;
     [SerializeField] private int maxNumCarsSpawned = 6;
@@ -19,8 +17,6 @@ public class LaneManager : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        myRigidbody = GetComponent<Rigidbody2D>();
-        myRigidbody.velocity = new Vector2(-screenScrollSpeed, 0);
         StartCoroutine(SpawnCars());
     }
 
@@ -34,6 +30,7 @@ public class LaneManager : MonoBehaviour
             {
                 GameObject chosenPreFab = GetRandomFromList<GameObject>(carPrefabs);
                 GameObject newCar = Instantiate(chosenPreFab, transform);
+                newCar.GetComponent<BasicCar>().SetScreenScrollSpeed(screenScrollSpeed);
                 float xPos = SelectXPos(alreadySelectedXPos);
                 if (xPos > 0)
                 {

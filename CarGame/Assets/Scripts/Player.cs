@@ -7,14 +7,17 @@ public class Player : MonoBehaviour
 {
     [Header("Basic Movement")]
     private Rigidbody2D myRigidbody;
+    private Collider2D myCollider;
+    private Vector2 velocity = new Vector2(0, 0);
     protected float curAcceleration;
     [SerializeField] protected float acceleration = 1f;
     protected float curDeceleration;
     [SerializeField] protected float deceleration = .5f;
     protected float curMaxSpeed;
     [SerializeField] protected float maxSpeed = 10f;
-    
+
     [Header("Basic Jumping")]
+    [SerializeField] private float gravityAcc = 9.81f;
     [SerializeField] protected float jumpSpeed = 10f;
     [SerializeField] protected float minJumpSpeed = 2f;
     [SerializeField] private string jumpKey = "j";
@@ -29,6 +32,7 @@ public class Player : MonoBehaviour
     [Header("On Ground")]
     private bool prevOnGround;
     protected bool onGround { get; private set; }
+    private Rigidbody2D platformRigidbody;
 
     [Header("Tripping")]
     [SerializeField] private float tripDecrease = .3f;
@@ -38,6 +42,7 @@ public class Player : MonoBehaviour
     protected void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
+        myCollider = GetComponent<Collider2D>();
         curAcceleration = acceleration;
         curDeceleration = deceleration;
         curMaxSpeed = maxSpeed;
@@ -71,7 +76,6 @@ public class Player : MonoBehaviour
     protected virtual void Move()
     {
         float direction = Input.GetAxis("Horizontal");
-        Vector2 velocity = myRigidbody.velocity;
         if (direction != 0)
         {
             // Acceleration
@@ -105,7 +109,15 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        myRigidbody.velocity = velocity;
+        velocity.y -= gravityAcc * Time.deltaTime;
+        if (platformRigidbody != null)
+        {
+            myRigidbody.velocity = velocity + platformRigidbody.velocity;
+        }
+        else
+        {
+            myRigidbody.velocity = velocity;
+        }
     }
 
     protected void TryJump()
@@ -113,7 +125,6 @@ public class Player : MonoBehaviour
         if (CanJump() && ShouldJump())
         {
             jumped = true;
-            Vector2 velocity = myRigidbody.velocity;
             velocity.y = jumpSpeed;
             myRigidbody.velocity = velocity;
             StartCoroutine(EndJump());
@@ -124,9 +135,9 @@ public class Player : MonoBehaviour
     {
         yield return new WaitUntil(() => ReleasedJump());
         // This lets the player end their jump early and have a shorter jump
-        if (myRigidbody.velocity.y > minJumpSpeed)
+        if (velocity.y > minJumpSpeed)
         {
-            myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, minJumpSpeed);
+            velocity = new Vector2(velocity.x, minJumpSpeed);
         }
     }
 
@@ -153,10 +164,16 @@ public class Player : MonoBehaviour
     protected void ResetOnGround()
     {
         prevOnGround = onGround;
-        onGround = Physics2D.Raycast(transform.position, Vector2.down, jumpRaycastHeight, floorMask);
+        onGround = Physics2D.Raycast(transform.position, Vector2.down, jumpRaycastHeight, floorMask)
+            || Physics2D.Raycast(transform.position + new Vector3(myCollider.bounds.min.x - myCollider.bounds.center.x, 0), Vector2.down, jumpRaycastHeight, floorMask)
+            || Physics2D.Raycast(transform.position + new Vector3(myCollider.bounds.max.x - myCollider.bounds.center.x, 0), Vector2.down, jumpRaycastHeight, floorMask);
         if (onGround)
         {
             jumped = false;
+            if (velocity.y < 0)
+            {
+                velocity.y = 0;
+            }
         }
         else if (!jumped && !onGround && prevOnGround)
         {
@@ -193,6 +210,23 @@ public class Player : MonoBehaviour
             }
             tripCoroutine = Trip();
             StartCoroutine(tripCoroutine);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("colliding with " + collision.transform.name + ", with tag = " + collision.transform.tag);
+        if (collision.transform.CompareTag("MovingPlatform"))
+        {
+            platformRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("MovingPlatform") && platformRigidbody == collision.gameObject.GetComponent<Rigidbody2D>())
+        {
+            platformRigidbody = null;
         }
     }
 }
