@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     private float remainingCoyoteTime = 0;
     [SerializeField] private float quickJumpTime = .1f;
     private float quickJumpTimeRemaining = 0; // This will automatically jump when you next reach the ground
+    private bool isGameOver = false;
 
     [Header("On Ground")]
     private bool prevOnGround;
@@ -70,7 +71,10 @@ public class Player : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        Move();
+        if (!IsGameOver())
+        {
+            Move();
+        }
     }
 
     protected virtual void Move()
@@ -143,7 +147,11 @@ public class Player : MonoBehaviour
 
     protected virtual bool CanJump()
     {
-        return onGround || remainingCoyoteTime > 0;
+        if (!IsGameOver())
+        {
+            return onGround || remainingCoyoteTime > 0;
+        }
+        return false;
     }
 
     protected bool PressedJump()
@@ -159,6 +167,14 @@ public class Player : MonoBehaviour
     protected bool ReleasedJump()
     {
         return !Input.GetKey(jumpKey);
+    }
+    protected bool IsGameOver()
+    {
+        if (isGameOver)
+        {
+            return true;
+        }
+        return false;
     }
 
     protected void ResetOnGround()
@@ -210,6 +226,11 @@ public class Player : MonoBehaviour
             }
             tripCoroutine = Trip();
             StartCoroutine(tripCoroutine);
+        }
+        if (collision.CompareTag("Game Over"))
+        {
+            Debug.Log("Game Over");
+            isGameOver = true;
         }
     }
 
