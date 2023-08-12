@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class CarPlayer : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [Header("Basic Movement")]
     private Rigidbody2D myRigidbody;
