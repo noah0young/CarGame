@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -19,13 +20,15 @@ public class CarPlayer : MonoBehaviour
     [SerializeField] private string jumpKey = "j";
     [SerializeField] private float jumpRaycastHeight = .6f;
     [SerializeField] private LayerMask floorMask;
-    private bool prevOnGround;
-    protected bool onGround { get; private set; }
     private bool jumped = false;
     [SerializeField] private float coyoteTime = .1f;
     private float remainingCoyoteTime = 0;
     [SerializeField] private float quickJumpTime = .1f;
     private float quickJumpTimeRemaining = 0; // This will automatically jump when you next reach the ground
+
+    [Header("On Ground")]
+    private bool prevOnGround;
+    protected bool onGround { get; private set; }
 
     [Header("Tripping")]
     [SerializeField] private float tripDecrease = .3f;
