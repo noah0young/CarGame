@@ -11,6 +11,7 @@ public class BasicCar : MonoBehaviour
     [SerializeField] private GameObject explosionPreFab;
     [SerializeField] private float timeUntilExplosion = .1f;
     [SerializeField] private bool canExplode = true;
+    [SerializeField] private bool isBombCar = false;
     [Header("Car Sway")]
     [SerializeField] private float speedSway = 0;
     [SerializeField] private float timeOffset = 0;
@@ -52,6 +53,14 @@ public class BasicCar : MonoBehaviour
             Destroy(gameObject);
         }
         else if (collision.CompareTag("MovingPlatform") && canExplode)
+        {
+            StartCoroutine(Explode());
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Player") && isBombCar)
         {
             StartCoroutine(Explode());
         }

@@ -1,9 +1,14 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
+    [SerializeField] private AudioSource mainMusic;
+    [SerializeField] private float musicVolume = .3f;
+    [SerializeField] private float deadVolume = .1f;
+    private AudioSource deathSource;
     private Animator myAnim;
     [SerializeField] private Transform model;
     private Collider2D myCollider;
@@ -25,7 +30,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float gravityAcc = 9.81f;
     [SerializeField] protected float jumpSpeed = 10f;
     [SerializeField] protected float minJumpSpeed = 2f;
-    [SerializeField] private string jumpKey = "j";
+    [SerializeField] private List<string> jumpKeys;
     //[SerializeField] private float jumpRaycastHeight = 1.1f;
     [SerializeField] private JumpCollider belowCollider;
     [SerializeField] private JumpCollider overlapCollider;
@@ -48,6 +53,8 @@ public class Player : MonoBehaviour
 
     protected void Start()
     {
+        deathSource = GetComponent<AudioSource>();
+        mainMusic.volume = musicVolume;
         canMove = true;
         Time.timeScale = 1;
         myCollider = GetComponent<Collider2D>();
@@ -176,7 +183,12 @@ public class Player : MonoBehaviour
 
     protected bool PressedJump()
     {
-        return Input.GetKeyDown(jumpKey);
+        foreach (string key in jumpKeys)
+        {
+            if (Input.GetKeyDown(key))
+                return true;
+        }
+        return false;
     }
 
     protected bool ShouldJump()
@@ -186,7 +198,12 @@ public class Player : MonoBehaviour
 
     protected bool ReleasedJump()
     {
-        return !Input.GetKey(jumpKey);
+        foreach (string key in jumpKeys)
+        {
+            if (Input.GetKey(key))
+                return false;
+        }
+        return true;
     }
     protected bool IsGameOver()
     {
@@ -305,6 +322,8 @@ public class Player : MonoBehaviour
         myAnim.SetBool("dead", true);
         velocity = Vector2.zero;
         myRigidbody.velocity = Vector2.zero;
+        mainMusic.volume = deadVolume;
+        deathSource.Play();
         Time.timeScale = 0;
         gameOverUI.SetActive(true);
         isGameOver = true;

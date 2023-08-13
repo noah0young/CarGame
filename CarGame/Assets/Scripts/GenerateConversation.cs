@@ -18,10 +18,12 @@ public class GenerateConversation : MonoBehaviour
     [SerializeField] private bool isText = false;
     private AudioSource textPing;
     private Shake cameraShake;
+    private AudioSource audio;
 
     // Start is called before the first frame update
     private void Start()
     {
+        audio = GetComponent<AudioSource>();
         StopCurConversation();
         if (isText)
         {
@@ -101,7 +103,18 @@ public class GenerateConversation : MonoBehaviour
                 textPing.Play();
                 cameraShake.start = true;
             }
-            yield return new WaitForSeconds(curConversation.GetTimeSaid());
+            float timeTalking = message.GetTimeTalking();
+            if (timeTalking == -1)
+            {
+                timeTalking = curConversation.GetTimeSaid();
+            }
+            AudioClip messageClip = message.GetClip();
+            if (messageClip != null)
+            {
+                audio.clip = messageClip;
+                audio.Play();
+            }
+            yield return new WaitForSeconds(timeTalking);
             popup.SetActive(false);
             yield return new WaitForSeconds(curConversation.GetTimeBetween());
         }
@@ -189,16 +202,24 @@ public class Message
     private string text;
     private Color backgroundColor;
     private string name;
+    private float timeTalking;
+    private AudioClip clip;
 
     public Message(string text) : this(text, Color.cyan) { }
 
-    public Message(string text, Color backgroundColor) : this(text, backgroundColor, null) { }
+    public Message(string text, Color backgroundColor) : this(text, backgroundColor, null, -1, null) { }
 
-    public Message(string text, Color backgroundColor, string name)
+    public Message(string text, Color backgroundColor, string name) : this(text, backgroundColor, name, -1, null) { }
+
+    public Message(string text, Color backgroundColor, string name, float timeTalking) : this(text, backgroundColor, name, timeTalking, null) { }
+
+    public Message(string text, Color backgroundColor, string name, float timeTalking, AudioClip clip)
     {
         this.name = name;
         this.text = text;
         this.backgroundColor = backgroundColor;
+        this.timeTalking = timeTalking;
+        this.clip = clip;
     }
 
     public string GetText()
@@ -214,5 +235,15 @@ public class Message
     public string GetName()
     {
         return name;
+    }
+
+    public float GetTimeTalking()
+    {
+        return timeTalking;
+    }
+
+    public AudioClip GetClip()
+    {
+        return clip;
     }
 }

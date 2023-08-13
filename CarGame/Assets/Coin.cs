@@ -13,7 +13,7 @@ public class Coin : MonoBehaviour
         {
             GameManager.AddToScore(score);
             Instantiate(coinSound).transform.position = transform.position;
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
         }
     }
 }

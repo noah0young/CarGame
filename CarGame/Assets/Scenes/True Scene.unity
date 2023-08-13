@@ -451,6 +451,8 @@ MonoBehaviour:
   - {fileID: 4789675908501214321, guid: e240aae3fee8c4ba6a06afde11e82248, type: 3}
   - {fileID: 1753251010662292707, guid: 4fe1611341ff541f78989b5242d45f9b, type: 3}
   - {fileID: 5400449003233732207, guid: fcfdd4f6f74d14abf9e26955ce892144, type: 3}
+  - {fileID: 1037076604136609912, guid: ff7fd03f6438d47ac94804a2e131f8e0, type: 3}
+  - {fileID: 3566827535532148876, guid: f2ba2b9992a124de4b4226b81acb6b80, type: 3}
   minNumCarsSpawned: 1
   maxNumCarsSpawned: 2
   screenScrollSpeed: 3
@@ -992,6 +994,8 @@ MonoBehaviour:
   - {fileID: 4789675908501214321, guid: e240aae3fee8c4ba6a06afde11e82248, type: 3}
   - {fileID: 1753251010662292707, guid: 4fe1611341ff541f78989b5242d45f9b, type: 3}
   - {fileID: 5400449003233732207, guid: fcfdd4f6f74d14abf9e26955ce892144, type: 3}
+  - {fileID: 1037076604136609912, guid: ff7fd03f6438d47ac94804a2e131f8e0, type: 3}
+  - {fileID: 3566827535532148876, guid: f2ba2b9992a124de4b4226b81acb6b80, type: 3}
   minNumCarsSpawned: 1
   maxNumCarsSpawned: 2
   screenScrollSpeed: 3
@@ -1806,9 +1810,21 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1362905648713226212, guid: eb857844672404cee9c8d00a0c3cc58e, type: 3}
+      propertyPath: mainMusic
+      value: 
+      objectReference: {fileID: 1552113623}
+    - target: {fileID: 1362905648713226212, guid: eb857844672404cee9c8d00a0c3cc58e, type: 3}
+      propertyPath: deadVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1362905648713226212, guid: eb857844672404cee9c8d00a0c3cc58e, type: 3}
       propertyPath: gameOverUI
       value: 
       objectReference: {fileID: 386783771}
+    - target: {fileID: 1362905648713226212, guid: eb857844672404cee9c8d00a0c3cc58e, type: 3}
+      propertyPath: musicVolume
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 1362905648713226215, guid: eb857844672404cee9c8d00a0c3cc58e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -6856,6 +6872,7 @@ MonoBehaviour:
   - {fileID: 4789675908501214321, guid: e240aae3fee8c4ba6a06afde11e82248, type: 3}
   - {fileID: 1753251010662292707, guid: 4fe1611341ff541f78989b5242d45f9b, type: 3}
   - {fileID: 5400449003233732207, guid: fcfdd4f6f74d14abf9e26955ce892144, type: 3}
+  - {fileID: 3566827535532148876, guid: f2ba2b9992a124de4b4226b81acb6b80, type: 3}
   minNumCarsSpawned: 1
   maxNumCarsSpawned: 2
   screenScrollSpeed: 3
@@ -7657,6 +7674,8 @@ MonoBehaviour:
   - {fileID: 4789675908501214321, guid: e240aae3fee8c4ba6a06afde11e82248, type: 3}
   - {fileID: 1753251010662292707, guid: 4fe1611341ff541f78989b5242d45f9b, type: 3}
   - {fileID: 5400449003233732207, guid: fcfdd4f6f74d14abf9e26955ce892144, type: 3}
+  - {fileID: 1037076604136609912, guid: ff7fd03f6438d47ac94804a2e131f8e0, type: 3}
+  - {fileID: 3566827535532148876, guid: f2ba2b9992a124de4b4226b81acb6b80, type: 3}
   minNumCarsSpawned: 1
   maxNumCarsSpawned: 2
   screenScrollSpeed: 3

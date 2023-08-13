@@ -319,6 +319,12 @@ MonoBehaviour:
   scoreIncRate: 5
   scoreText: {fileID: 3319134450330840445}
   randomConversation: {fileID: 2903058042386512422}
+  clips:
+  - {fileID: 8300000, guid: 4c1676fe3a8ea47e49403a971a83e83a, type: 3}
+  - {fileID: 8300000, guid: 3729f51250ead4782957fd11f7b6cfc7, type: 3}
+  - {fileID: 8300000, guid: ae3a8440615654dc99ba5d0c1c0b7fbb, type: 3}
+  - {fileID: 8300000, guid: 9af006922c1b4439d816698ff05f0f91, type: 3}
+  - {fileID: 8300000, guid: df98daa9dcc7e4d83b11a4dee8c5d584, type: 3}
   randomConversationDelay: 4
   randomConversationMinTimeBetween: 4
   randomConversationMaxTimeBetween: 8
