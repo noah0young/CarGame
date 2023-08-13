@@ -1,13 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
-    [Header("Basic Movement")]
-    private Rigidbody2D myRigidbody;
+    private Animator myAnim;
+    [SerializeField] private Transform model;
     private Collider2D myCollider;
+    [SerializeField] private Sprite deadSprite;
+    [SerializeField] private Vector2 explosionSpeed = new Vector2(5, 10);
+    [SerializeField] private float explosionNoMoveTime = .3f;
+    [Header("Basic Movement")]
+    private bool canMove = true;
+    private Rigidbody2D myRigidbody;
     private Vector2 velocity = new Vector2(0, 0);
     protected float curAcceleration;
     [SerializeField] protected float acceleration = 1f;
@@ -21,7 +26,9 @@ public class Player : MonoBehaviour
     [SerializeField] protected float jumpSpeed = 10f;
     [SerializeField] protected float minJumpSpeed = 2f;
     [SerializeField] private string jumpKey = "j";
-    [SerializeField] private float jumpRaycastHeight = .6f;
+    //[SerializeField] private float jumpRaycastHeight = 1.1f;
+    [SerializeField] private JumpCollider belowCollider;
+    [SerializeField] private JumpCollider overlapCollider;
     [SerializeField] private LayerMask floorMask;
     private bool jumped = false;
     [SerializeField] private float coyoteTime = .1f;
@@ -34,20 +41,21 @@ public class Player : MonoBehaviour
     private bool prevOnGround;
     protected bool onGround { get; private set; }
     private Rigidbody2D platformRigidbody;
+    private float platformRaycastHeight = 1.1f;
 
-    [Header("Tripping")]
-    [SerializeField] private float tripDecrease = .3f;
-    [SerializeField] private float tripTime = .5f;
-    private IEnumerator tripCoroutine;
+    [Header("Game Over")]
+    [SerializeField] private GameObject gameOverUI;
 
     protected void Start()
     {
-        myRigidbody = GetComponent<Rigidbody2D>();
+        canMove = true;
+        Time.timeScale = 1;
         myCollider = GetComponent<Collider2D>();
+        myAnim = GetComponentInChildren<Animator>();
+        myRigidbody = GetComponent<Rigidbody2D>();
         curAcceleration = acceleration;
         curDeceleration = deceleration;
         curMaxSpeed = maxSpeed;
-        tripCoroutine = null;
     }
 
     protected void Update()
@@ -71,7 +79,7 @@ public class Player : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        if (!IsGameOver())
+        if (!IsGameOver() && canMove)
         {
             Move();
         }
@@ -80,8 +88,14 @@ public class Player : MonoBehaviour
     protected virtual void Move()
     {
         float direction = Input.GetAxis("Horizontal");
+        model.localScale = new Vector3(Mathf.Abs(model.localScale.x), model.localScale.y, model.localScale.z);
         if (direction != 0)
         {
+            if (direction < 0)
+            {
+                model.localScale = new Vector3(-Mathf.Abs(model.localScale.x), model.localScale.y, model.localScale.z);
+            }
+            myAnim.SetBool("moving", true);
             // Acceleration
             velocity.x += direction * curAcceleration * Time.fixedDeltaTime;
             if (velocity.x > curMaxSpeed)
@@ -95,6 +109,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            myAnim.SetBool("moving", false);
             // Deceleration
             if (velocity.x > 0)
             {
@@ -128,10 +143,15 @@ public class Player : MonoBehaviour
     {
         if (CanJump() && ShouldJump())
         {
+            myAnim.SetBool("falling", false);
             jumped = true;
             velocity.y = jumpSpeed;
             myRigidbody.velocity = velocity;
             StartCoroutine(EndJump());
+        }
+        if (velocity.y < 0)
+        {
+            myAnim.SetBool("falling", true);
         }
     }
 
@@ -180,10 +200,20 @@ public class Player : MonoBehaviour
     protected void ResetOnGround()
     {
         prevOnGround = onGround;
-        onGround = (Physics2D.Raycast(transform.position, Vector2.down, jumpRaycastHeight, floorMask)
-            || Physics2D.Raycast(transform.position + new Vector3(myCollider.bounds.min.x - myCollider.bounds.center.x, 0), Vector2.down, jumpRaycastHeight, floorMask)
-            || Physics2D.Raycast(transform.position + new Vector3(myCollider.bounds.max.x - myCollider.bounds.center.x, 0), Vector2.down, jumpRaycastHeight, floorMask))
-            && velocity.y <= 0;
+        /*if (overlapCollider.NumColliding() <= 0)
+        {
+            onGround = (Physics2D.Raycast(transform.position, Vector2.down, jumpRaycastHeight, floorMask)
+                || Physics2D.Raycast(transform.position + new Vector3(myCollider.bounds.min.x - myCollider.bounds.center.x, 0), Vector2.down, jumpRaycastHeight, floorMask)
+                || Physics2D.Raycast(transform.position + new Vector3(myCollider.bounds.max.x - myCollider.bounds.center.x, 0), Vector2.down, jumpRaycastHeight, floorMask))
+                && velocity.y <= 0;
+        }
+        else
+        {
+            onGround = false;
+        }*/
+        onGround = belowCollider.NumColliding() - overlapCollider.NumColliding() > 0;
+        SetPlatformRigidbody();
+        myAnim.SetBool("inAir", !onGround);
         if (onGround)
         {
             jumped = false;
@@ -202,37 +232,82 @@ public class Player : MonoBehaviour
         }
     }
 
-    protected virtual IEnumerator Trip()
+    private void SetPlatformRigidbody()
     {
-        Debug.Log("Tripped");
-        curAcceleration = acceleration - tripDecrease;
-        curDeceleration = deceleration - tripDecrease;
-        curMaxSpeed = maxSpeed - tripDecrease;
-        yield return new WaitForSeconds(tripTime);
-        curAcceleration = acceleration;
-        curDeceleration = deceleration;
-        curMaxSpeed = maxSpeed;
-        tripCoroutine = null;
-        Debug.Log("Tripped End");
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, platformRaycastHeight, floorMask);
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position + new Vector3(myCollider.bounds.min.x - myCollider.bounds.center.x, 0), Vector2.down, platformRaycastHeight, floorMask);
+        RaycastHit2D hit3 = Physics2D.Raycast(transform.position + new Vector3(myCollider.bounds.max.x - myCollider.bounds.center.x, 0), Vector2.down, platformRaycastHeight, floorMask);
+        try
+        {
+            platformRigidbody = hit.collider.GetComponent<Rigidbody2D>();
+        }
+        catch
+        {
+            platformRigidbody = null;
+        }
+        if (platformRigidbody == null)
+        {
+            try
+            {
+                platformRigidbody = hit2.collider.GetComponent<Rigidbody2D>();
+            }
+            catch
+            {
+                platformRigidbody = null;
+            }
+            if (platformRigidbody == null)
+            {
+                try
+                {
+                    platformRigidbody = hit3.collider.GetComponent<Rigidbody2D>();
+                }
+                catch
+                {
+                    platformRigidbody = null;
+                }
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Trip"))
-        {
-            if (tripCoroutine != null)
-            {
-                StopCoroutine(tripCoroutine);
-                tripCoroutine = null;
-            }
-            tripCoroutine = Trip();
-            StartCoroutine(tripCoroutine);
-        }
         if (collision.CompareTag("Game Over"))
         {
-            Debug.Log("Game Over");
-            isGameOver = true;
+            OnGameOver();
         }
+        else if (collision.CompareTag("Explosion"))
+        {
+            Vector2 explosionCenter = collision.bounds.center;
+            //float explosionRadius = collision.bounds.max.x - explosionCenter.x;
+            Vector2 closestPoint = myCollider.ClosestPoint(explosionCenter);
+            //float distance = Vector2.Distance(closestPoint, explosionCenter);
+            Vector2 direction = -closestPoint.normalized;
+            StartCoroutine(ApplyExplosion(1, direction));
+        }
+    }
+
+    private IEnumerator ApplyExplosion(float percent, Vector2 direction)
+    {
+        Vector3 trueExplosionApplied = explosionSpeed;
+        if (direction.x > -.3f)
+        {
+            trueExplosionApplied.x = -trueExplosionApplied.x;
+        }
+        velocity = trueExplosionApplied;
+        myRigidbody.velocity = trueExplosionApplied;
+        canMove = false;
+        yield return new WaitForSeconds(explosionNoMoveTime);
+        canMove = true;
+    }
+
+    private void OnGameOver()
+    {
+        myAnim.SetBool("dead", true);
+        velocity = Vector2.zero;
+        myRigidbody.velocity = Vector2.zero;
+        Time.timeScale = 0;
+        gameOverUI.SetActive(true);
+        isGameOver = true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -241,13 +316,17 @@ public class Player : MonoBehaviour
         {
             platformRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
         }
+        else if (collision.transform.CompareTag("Game Over"))
+        {
+            OnGameOver();
+        }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    /*private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.transform.CompareTag("MovingPlatform") && platformRigidbody == collision.gameObject.GetComponent<Rigidbody2D>())
         {
             platformRigidbody = null;
         }
-    }
+    }*/
 }
