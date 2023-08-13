@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Random Conversations")]
     [SerializeField] private GenerateConversation randomConversation;
+    [SerializeField] private AudioClip[] clips = new AudioClip[5];
     [SerializeField] private float randomConversationDelay = 4;
     [SerializeField] private float randomConversationMinTimeBetween = 4;
     [SerializeField] private float randomConversationMaxTimeBetween = 8;
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
         List<Message> tempMessages = new List<Message>();
         tempMessages.Add(new Message(
             "Mom! I'm hungry"
-            , Color.cyan, "You"));
+            , Color.cyan, "You", 3, clips[0]));
         tempMessages.Add(new Message(
             "Didn't you just eat 10 minutes ago?"
             , Color.magenta, "Mom"));
@@ -69,22 +70,22 @@ public class GameManager : MonoBehaviour
         tempMessages = new List<Message>();
         tempMessages.Add(new Message(
             "Are we there yet!"
-            , Color.cyan, "You"));
+            , Color.cyan, "You", 3.5f, clips[2]));
         randomConversation.possibleConversations.Add(new Conversation(tempMessages));
         tempMessages = new List<Message>();
         tempMessages.Add(new Message(
             "Mom, I need to pee"
-            , Color.cyan, "You"));
+            , Color.cyan, "You", 4, clips[1]));
         randomConversation.possibleConversations.Add(new Conversation(tempMessages));
         tempMessages = new List<Message>();
         tempMessages.Add(new Message(
             "I'm tired"
-            , Color.cyan, "You"));
+            , Color.cyan, "You", 1.5f, clips[3]));
         randomConversation.possibleConversations.Add(new Conversation(tempMessages));
         tempMessages = new List<Message>();
         tempMessages.Add(new Message(
             "Moooooom"
-            , Color.cyan, "You"));
+            , Color.cyan, "You", 1f, clips[4]));
         tempMessages.Add(new Message(
             "What is it, kiddo?"
             , Color.magenta, "Mom"));
@@ -182,12 +183,12 @@ public class GameManager : MonoBehaviour
         tempMessages = new List<Message>();
         tempMessages.Add(new Message(
             "Have a safe trip"
-            , Color.blue, "Jimmy"));
+            , Color.green, "Jimmy"));
         textConversation.possibleConversations.Add(new Conversation(tempMessages));
         tempMessages = new List<Message>();
         tempMessages.Add(new Message(
             "Where are you?"
-            , Color.blue, "Steve"));
+            , Color.green, "Steve"));
         textConversation.possibleConversations.Add(new Conversation(tempMessages));
         tempMessages = new List<Message>();
         tempMessages.Add(new Message(

@@ -5,6 +5,7 @@ using UnityEngine;
 public class LaneManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> carPrefabs;
+    [SerializeField] private List<float> spawnRates;
     [SerializeField] private int minNumCarsSpawned = 3;
     [SerializeField] private int maxNumCarsSpawned = 6;
     [SerializeField] private float screenScrollSpeed = 3;
@@ -28,7 +29,7 @@ public class LaneManager : MonoBehaviour
             int numCarsSpawned = Random.Range(minNumCarsSpawned, maxNumCarsSpawned);
             for (int i = 0; i < numCarsSpawned; i++)
             {
-                GameObject chosenPreFab = Utilities.GetRandomFromList<GameObject>(carPrefabs);
+                GameObject chosenPreFab = Utilities.GetRandomFromList<GameObject>(carPrefabs, spawnRates);
                 GameObject newCar = Instantiate(chosenPreFab, transform);
                 newCar.GetComponent<BasicCar>().SetScreenScrollSpeed(screenScrollSpeed);
                 float xPos = SelectXPos(alreadySelectedXPos);
