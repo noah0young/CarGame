@@ -65,6 +65,10 @@ public class GenerateConversation : MonoBehaviour
 
     public void StartConversation(string name)
     {
+        if (noTalking)
+        {
+            return;
+        }
         for (int i = 0; i < possibleConversations.Count; i++)
         {
             if (name.Contains(possibleConversations[i].Copy().GetNext().GetName()))

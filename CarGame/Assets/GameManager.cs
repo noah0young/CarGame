@@ -128,7 +128,6 @@ public class GameManager : MonoBehaviour
         "..."
         , Color.cyan, "You"));
         storyConversation.possibleConversations.Add(new Conversation(tempMessages));
-        storyConversation.possibleConversations.Add(new Conversation(tempMessages));
         tempMessages = new List<Message>();
         tempMessages.Add(new Message(
             "Alright we finally made it to the hotel, ready to go to bed kiddo ?"
