@@ -9,6 +9,8 @@ TagManager:
   - Trip
   - Game Over
   - Explosion
+  - Bump
+  - Trampoleen
   layers:
   - Default
   - TransparentFX

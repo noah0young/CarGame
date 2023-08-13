@@ -12,14 +12,18 @@ public class BasicCar : MonoBehaviour
     [SerializeField] private float timeUntilExplosion = .1f;
     [SerializeField] private bool canExplode = true;
     [SerializeField] private bool isBombCar = false;
+    [SerializeField] private bool isWall = false;
     [Header("Car Sway")]
     [SerializeField] private float speedSway = 0;
     [SerializeField] private float timeOffset = 0;
+    private float bumpSpeed = .3f;
+    private bool bumped = false;
     private float timePassed = 0;
 
     // Start is called before the first frame update
     private void Start()
     {
+        bumped = false;
         timePassed += timeOffset;
         Init();
     }
@@ -38,24 +42,44 @@ public class BasicCar : MonoBehaviour
         timePassed += Time.deltaTime;
         float curSway = Mathf.Sin(timePassed);
         myRigidbody.velocity += new Vector2(curSway * speedSway * Time.deltaTime, 0);
+        if (bumped)
+        {
+            myRigidbody.velocity += new Vector2(0, bumpSpeed * speedSway * Time.deltaTime);
+        }
     }
 
     public void SetScreenScrollSpeed(float speed)
     {
         Init();
-        myRigidbody.velocity = new Vector2(-speed, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("CarDespawner"))
+        if (collision.transform.CompareTag("Bump"))
+        {
+            bumped = true;
+        }
+        else if (collision.CompareTag("CarDespawner"))
         {
             Destroy(gameObject);
+        }
+        else if (collision.CompareTag("MovingPlatform") && isWall)
+        {
+            collision.GetComponent<BasicCar>().WallExplode();
         }
         else if (collision.CompareTag("MovingPlatform") && canExplode)
         {
             StartCoroutine(Explode());
         }
+        else if (collision.transform.CompareTag("Player") && isBombCar)
+        {
+            StartCoroutine(Explode());
+        }
+    }
+
+    private void WallExplode()
+    {
+        StartCoroutine(Explode());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

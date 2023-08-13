@@ -14,6 +14,7 @@ public class GenerateConversation : MonoBehaviour
     private IEnumerator curConversationMethod;
     [SerializeField] private List<GameObject> possibleMessagePopUp;
     [SerializeField] private GameObject popupPrefab;
+    private List<GameObject> popupPrefabOut = new List<GameObject>();
     private bool noTalking = false;
     [SerializeField] private bool isText = false;
     private AudioSource textPing;
@@ -93,6 +94,7 @@ public class GenerateConversation : MonoBehaviour
             Message message = curConversation.GetNext();
             GameObject popupLoc = Utilities.GetRandomFromList<GameObject>(possibleMessagePopUp);
             GameObject popup = Instantiate(popupPrefab, popupLoc.transform.parent);
+            popupPrefabOut.Add(popup);
             popup.transform.position = popupLoc.transform.position;
             Popup popupComponent = popup.GetComponent<Popup>();
             popupComponent.speakerName = message.GetName();
@@ -115,7 +117,8 @@ public class GenerateConversation : MonoBehaviour
                 audio.Play();
             }
             yield return new WaitForSeconds(timeTalking);
-            popup.SetActive(false);
+            popupPrefabOut.Remove(popup);
+            Destroy(popup);
             yield return new WaitForSeconds(curConversation.GetTimeBetween());
         }
         curConversation = null;
@@ -128,10 +131,11 @@ public class GenerateConversation : MonoBehaviour
 
     private void StopCurConversation()
     {
-        foreach (GameObject popup in possibleMessagePopUp)
+        foreach (GameObject popup in popupPrefabOut)
         {
-            popup.SetActive(false);
+            Destroy(popup);
         }
+        popupPrefabOut.Clear();
         if (curConversationMethod != null)
         {
             StopCoroutine(curConversationMethod);

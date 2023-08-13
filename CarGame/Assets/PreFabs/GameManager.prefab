@@ -329,7 +329,7 @@ MonoBehaviour:
   randomConversationMinTimeBetween: 4
   randomConversationMaxTimeBetween: 8
   storyConversation: {fileID: 2673498565346097242}
-  minScoreForStory: e8030000d0070000a00f0000
+  minScoreForStory: f4010000e8030000dc050000
   textConversation: {fileID: 1784429911747483237}
   textsDelay: 6
   textsMinTimeBetween: 3
@@ -1223,6 +1223,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 951462437321967216, guid: cca660652a1dc42a784c7914b3bac3ef, type: 3}
+      propertyPath: popupPrefab
+      value: 
+      objectReference: {fileID: 6638786256472712221, guid: db7911d414d8348ac827172bf41db9ab, type: 3}
     - target: {fileID: 1164074621468922707, guid: cca660652a1dc42a784c7914b3bac3ef, type: 3}
       propertyPath: m_IsActive
       value: 1

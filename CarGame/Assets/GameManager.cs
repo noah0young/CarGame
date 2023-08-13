@@ -183,12 +183,12 @@ public class GameManager : MonoBehaviour
         tempMessages = new List<Message>();
         tempMessages.Add(new Message(
             "Have a safe trip"
-            , Color.blue, "Jimmy"));
+            , Color.green, "Jimmy"));
         textConversation.possibleConversations.Add(new Conversation(tempMessages));
         tempMessages = new List<Message>();
         tempMessages.Add(new Message(
             "Where are you?"
-            , Color.blue, "Steve"));
+            , Color.green, "Steve"));
         textConversation.possibleConversations.Add(new Conversation(tempMessages));
         tempMessages = new List<Message>();
         tempMessages.Add(new Message(

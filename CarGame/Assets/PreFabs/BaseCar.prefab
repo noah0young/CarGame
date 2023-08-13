@@ -44,7 +44,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 807ba54e34a4b4e539c2b1e1b3c187ce, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.007
+  m_Volume: 0.01
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -186,6 +186,7 @@ MonoBehaviour:
   timeUntilExplosion: 0.05
   canExplode: 1
   isBombCar: 0
+  isWall: 0
   speedSway: 0
   timeOffset: 0
 --- !u!222 &8404601133728101720
@@ -216,7 +217,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 4
 --- !u!60 &1468415138157968837
 PolygonCollider2D:
   m_ObjectHideFlags: 0

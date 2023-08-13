@@ -89,7 +89,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5818706205893902717, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5818706205893902717, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
       propertyPath: m_Offset.x
@@ -101,6 +101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1468415138157968837, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+    - {fileID: 5134611907124906750, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
 --- !u!1 &3566827535532148876 stripped
 GameObject:
@@ -117,8 +118,24 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0040437155, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.26
+--- !u!58 &6880893743945330172
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3566827535532148876}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 1
+  m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0040437155, y: 0}
   serializedVersion: 2

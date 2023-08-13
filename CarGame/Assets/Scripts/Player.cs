@@ -8,7 +8,8 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource mainMusic;
     [SerializeField] private float musicVolume = .3f;
     [SerializeField] private float deadVolume = .1f;
-    private AudioSource deathSource;
+    [SerializeField] private AudioSource deathSource;
+    [SerializeField] private AudioSource boingSource;
     private Animator myAnim;
     [SerializeField] private Transform model;
     private Collider2D myCollider;
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
     [SerializeField] protected float maxSpeed = 10f;
 
     [Header("Basic Jumping")]
+    [SerializeField] private float trampoleenSpeedBoost = 10f;
     [SerializeField] private float gravityAcc = 9.81f;
     [SerializeField] protected float jumpSpeed = 10f;
     [SerializeField] protected float minJumpSpeed = 2f;
@@ -53,7 +55,6 @@ public class Player : MonoBehaviour
 
     protected void Start()
     {
-        deathSource = GetComponent<AudioSource>();
         mainMusic.volume = musicVolume;
         canMove = true;
         Time.timeScale = 1;
@@ -300,6 +301,12 @@ public class Player : MonoBehaviour
             //float distance = Vector2.Distance(closestPoint, explosionCenter);
             Vector2 direction = -closestPoint.normalized;
             StartCoroutine(ApplyExplosion(1, direction));
+        }
+        else if (collision.CompareTag("Trampoleen"))
+        {
+            boingSource.Play();
+            velocity.y = trampoleenSpeedBoost;
+            myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, trampoleenSpeedBoost);
         }
     }
 
