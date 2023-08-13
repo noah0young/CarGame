@@ -7,6 +7,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 263591912567555227, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 088af6eb4bc3a4fb68013f6d66d4a2e0, type: 2}
+    - target: {fileID: 1468415138157968837, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].x
+      value: -0.5003076
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468415138157968837, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
+      value: 0.14371115
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468415138157968837, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[6].x
+      value: 0.43168184
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468415138157968837, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[6].y
+      value: 0.1642533
+      objectReference: {fileID: 0}
     - target: {fileID: 1644251870613122565, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -51,6 +71,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2439472351708342235, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: speedSway
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2439472351708342235, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: destroyedSprite
+      value: 
+      objectReference: {fileID: -1482756804, guid: d75ad61089cc6694c9a6e699a7ad0463, type: 3}
     - target: {fileID: 4241145984627023048, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
       propertyPath: m_Name
       value: PoliceCar

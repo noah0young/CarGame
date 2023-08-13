@@ -1,0 +1,179 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2366769388761820831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2633078590480523204}
+  - component: {fileID: 9177397121804055969}
+  - component: {fileID: 1541810304287438556}
+  m_Layer: 6
+  m_Name: SpikesCollider
+  m_TagString: Game Over
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2633078590480523204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2366769388761820831}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7419718118491411618}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &9177397121804055969
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2366769388761820831}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 1
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.14991316, y: 0.5245608}
+      - {x: -0.005927384, y: 0.29056668}
+      - {x: -0.14620619, y: 0.51879805}
+      - {x: -0.28444698, y: 0.28953046}
+      - {x: -0.49410835, y: 0.28142214}
+      - {x: -0.6212474, y: 0.064872414}
+      - {x: 0.60295445, y: 0.06904644}
+      - {x: 0.5021205, y: 0.23609275}
+      - {x: 0.42167655, y: 0.1476996}
+      - {x: 0.29572117, y: 0.2747513}
+--- !u!251 &1541810304287438556
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2366769388761820831}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
+--- !u!1001 &8082180174354807463
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 263591912567555227, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e341910bd332c45ccbac23fd1def7dcc, type: 2}
+    - target: {fileID: 854896792783476862, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.124
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644251870613122565, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644251870613122565, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.0825028
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644251870613122565, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644251870613122565, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.10143163
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644251870613122565, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644251870613122565, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644251870613122565, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644251870613122565, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644251870613122565, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644251870613122565, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1644251870613122565, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2439472351708342235, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: speedSway
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2439472351708342235, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: destroyedSprite
+      value: 
+      objectReference: {fileID: -759734848, guid: 8155b53c4f54e4d3eb17ecd4f0c788a7, type: 3}
+    - target: {fileID: 3353553585040892741, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4241145984627023048, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_Name
+      value: SpikeCar
+      objectReference: {fileID: 0}
+    - target: {fileID: 4563545439841622003, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 968727354, guid: 8155b53c4f54e4d3eb17ecd4f0c788a7, type: 3}
+    - target: {fileID: 8891268865533864757, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+      propertyPath: m_Name
+      value: SpikeCarSprite
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+--- !u!4 &7419718118491411618 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1644251870613122565, guid: 52a8b9141c4b640668bdc928357aa5e0, type: 3}
+  m_PrefabInstance: {fileID: 8082180174354807463}
+  m_PrefabAsset: {fileID: 0}

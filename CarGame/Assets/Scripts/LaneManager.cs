@@ -35,7 +35,7 @@ public class LaneManager : MonoBehaviour
                 if (xPos > 0)
                 {
                     alreadySelectedXPos.Add(xPos);
-                    newCar.transform.position = new Vector2(xPos, laneHeight);
+                    newCar.transform.position = new Vector3(xPos, laneHeight, -4);
                 }
                 else
                 {
@@ -52,7 +52,7 @@ public class LaneManager : MonoBehaviour
 
     private float SelectXPos(List<float> alreadySelectedXPos)
     {
-        float xPos = -1;
+        /*float xPos = -1;
         int numAllowedRerolls = 20;
         while (xPos == -1 || InRangeOfCar(alreadySelectedXPos, xPos, minCarDistance))
         {
@@ -64,7 +64,8 @@ public class LaneManager : MonoBehaviour
             }
             xPos = Random.Range(startSpawnDistance, endSpawnDistance);
         }
-        return xPos;
+        return xPos;*/
+        return Random.Range(startSpawnDistance, endSpawnDistance);
     }
 
     private bool InRangeOfCar(List<float> alreadySelectedXPos, float xPos, float minDistance)

@@ -8,6 +8,7 @@ TagManager:
   - MovingPlatform
   - Trip
   - Game Over
+  - Explosion
   layers:
   - Default
   - TransparentFX

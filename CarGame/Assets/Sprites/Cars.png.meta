@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -103,6 +103,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -1198,57 +1210,57 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Cars_2: -1482756804
-      Cars_32: 1213971144
-      Cars_23: -1855806371
-      Cars_40: 1417947139
-      Cars_4: 1941342874
-      Cars_9: -1621719978
-      Cars_14: 683807401
-      Cars_28: 2107673840
-      Cars_20: -750771497
-      Cars_7: 33376576
-      Cars_8: -1496404176
-      Cars_46: -336297675
-      Cars_22: 146910125
-      Cars_16: -618751625
-      Cars_33: -1438804814
-      Cars_49: 1847018442
-      Cars_50: 185193967
-      Cars_13: -272510139
-      Cars_38: 1132299002
-      Cars_35: 1367108351
-      Cars_41: 150832434
-      Cars_27: 319562646
-      Cars_24: 1943344812
-      Cars_25: -67696111
-      Cars_15: -783071178
-      Cars_34: -32810219
-      Cars_48: -478739072
-      Cars_30: 1459169440
-      Cars_47: 1851798985
-      Cars_19: -1354868955
-      Cars_21: -1889013336
-      Cars_37: -1905780850
-      Cars_36: -1587078746
+      Cars_0: -270469531
+      Cars_1: 337786036
       Cars_10: 484535792
       Cars_11: 1968103931
-      Cars_43: -783844703
-      Cars_31: -974012891
-      Cars_44: -908377793
-      Cars_29: -1933922480
-      Cars_1: 337786036
-      Cars_5: -605603915
-      Cars_17: -2140316905
-      Cars_45: -200755902
-      Cars_26: -1317152989
-      Cars_6: -1571903749
-      Cars_18: -796618561
-      Cars_3: -1670768813
       Cars_12: -1891022765
+      Cars_13: -272510139
+      Cars_14: 683807401
+      Cars_15: -783071178
+      Cars_16: -618751625
+      Cars_17: -2140316905
+      Cars_18: -796618561
+      Cars_19: -1354868955
+      Cars_2: -1482756804
+      Cars_20: -750771497
+      Cars_21: -1889013336
+      Cars_22: 146910125
+      Cars_23: -1855806371
+      Cars_24: 1943344812
+      Cars_25: -67696111
+      Cars_26: -1317152989
+      Cars_27: 319562646
+      Cars_28: 2107673840
+      Cars_29: -1933922480
+      Cars_3: -1670768813
+      Cars_30: 1459169440
+      Cars_31: -974012891
+      Cars_32: 1213971144
+      Cars_33: -1438804814
+      Cars_34: -32810219
+      Cars_35: 1367108351
+      Cars_36: -1587078746
+      Cars_37: -1905780850
+      Cars_38: 1132299002
       Cars_39: -1947300851
+      Cars_4: 1941342874
+      Cars_40: 1417947139
+      Cars_41: 150832434
       Cars_42: 353200816
-      Cars_0: -270469531
+      Cars_43: -783844703
+      Cars_44: -908377793
+      Cars_45: -200755902
+      Cars_46: -336297675
+      Cars_47: 1851798985
+      Cars_48: -478739072
+      Cars_49: 1847018442
+      Cars_5: -605603915
+      Cars_50: 185193967
+      Cars_6: -1571903749
+      Cars_7: 33376576
+      Cars_8: -1496404176
+      Cars_9: -1621719978
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
